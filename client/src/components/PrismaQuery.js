@@ -11,9 +11,6 @@ export default function PrismaQuery() {
  
   /** Prisma API URL  */
   const API_URL="http://localhost:5000/products";
-   /** Filler text for the cards */
-  const tempDescription = `A description of the menu item goes here. It's fine if the text is
-                          very long, it will wrap automatically thanks to the Grid layout`
  
   /** React effect hook that queries our Prisma API */
   useEffect(() => {
@@ -34,13 +31,14 @@ export default function PrismaQuery() {
  
   /** Return the React function component */
   return (
-     <div>
+     <div style={{ padding: 10 }}>
         {/** The container Grid item wraps all other Grid items */}
         <Grid
            container
            alignItems="flex-start"
            direction="row"
-           spacing={2}>
+           spacing={2}
+           >
           
            {/** items.map loops through the array of JSON objects and allows us to */
            /** access each object's properties */}
@@ -53,7 +51,11 @@ export default function PrismaQuery() {
                     /** Pass the fields from each JSON object as props to our CustomCard */
                     title={item.name}
                     price={item.price}
-                    description={tempDescription} />
+                    description={item.description}
+                    image={item.image}
+                    category={item.category}
+                    stock={item.stock}
+                  />
               </Grid>
            ))}
         </Grid>
