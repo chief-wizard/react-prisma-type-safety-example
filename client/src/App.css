@@ -1,14 +1,18 @@
 .App {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
   background-color: #e1e4e7;
   background-image: linear-gradient(315deg, #eef0f1 0%, #a9adb1 74%);
 }
 
-.Title {
+.title {
   font-size: xxx-large;
   margin-left: 5px;
+  margin-bottom: 0px;
 }
 
-.Tag {
+.tag {
   font-size: large;
-  margin-left: 5px;
+  margin-left: 7px;
 }
