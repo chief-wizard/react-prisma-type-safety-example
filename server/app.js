@@ -48,7 +48,7 @@ app.post("/products/update", async (req, res) => {
        }
      });
      /** Send a response telling the user our data has been written */
-     res.status(200).send({"message": "OK"});
+     return res.status(200).send({"message": "OK"});
    }
    /** When Prisma fails to write to database, catch the error and send it as response */
    catch (err) {
@@ -58,5 +58,5 @@ app.post("/products/update", async (req, res) => {
 
 /** Server */
 app.listen(port, () => {
-console.log(`API listening on localhost: ${port}`);
+  console.log(`API listening on localhost: ${port}`);
 });
