@@ -31,7 +31,7 @@ app.get('/products', async (req, res) => {
 });
 
  /** Update an existing product */
-app.patch("/products/update", async (req, res) => {
+app.post("/products/update", async (req, res) => {
    try {
      /** Use Prisma to write the data to our MySQL database */
      await prisma.supplier.update({
