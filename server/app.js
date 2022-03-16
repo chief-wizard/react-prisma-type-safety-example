@@ -34,7 +34,7 @@ app.get('/products', async (req, res) => {
   }
    /** When Prisma fails to read from database, catch the error and send it as our response */
    catch (err) {
-    res.status(500).send(err);
+    res.status(500).send({error: err.message});
  }
 });
 
@@ -60,7 +60,7 @@ app.post("/products/update", async (req, res) => {
    }
    /** When Prisma fails to write to database, catch the error and send it as response */
    catch (err) {
-     res.status(500).send(err);
+     res.status(500).send({error: err.message});
    }
  });
 
