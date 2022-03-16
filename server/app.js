@@ -1,9 +1,11 @@
+// @ts-check
+
 /** server/app.js */
 /** Required Node.js modules */
 const Express = require('express');
 const Prisma = require('prisma/prisma-client');
-const CORS = require('cors');
- 
+const path = require('path');
+
 /** Prisma client */
 const prisma = new Prisma.PrismaClient();
  
@@ -11,10 +13,16 @@ const prisma = new Prisma.PrismaClient();
 const app = Express();
 const port = 5000;
 app.use(Express.json());
-app.use(CORS());
 
 /** Routes */
-app.get('/', (req, res) => {
+
+/** Serve the compiled client React app from the build directory as the root of the web server */
+app.use(Express.static(path.join(__dirname, '..', 'client', 'build')));
+
+/** Express routes are listed first come first serve - the first routes listed take precedence if there are conflicting paths */
+
+/** Simple route to check that the server is running */
+app.get('/status', (req, res) => {
   res.send({ "server_online": true });
 });
 
@@ -26,7 +34,7 @@ app.get('/products', async (req, res) => {
   }
    /** When Prisma fails to read from database, catch the error and send it as our response */
    catch (err) {
-    res.status(500).send(err);
+    res.status(500).send({error: err.message});
  }
 });
 
@@ -34,7 +42,7 @@ app.get('/products', async (req, res) => {
 app.post("/products/update", async (req, res) => {
    try {
      /** Use Prisma to write the data to our MySQL database */
-     await prisma.supplier.update({
+     await prisma.goods.update({
        where: {
           id: req.body.id
        },
@@ -52,7 +60,7 @@ app.post("/products/update", async (req, res) => {
    }
    /** When Prisma fails to write to database, catch the error and send it as response */
    catch (err) {
-     res.status(500).send(err);
+     res.status(500).send({error: err.message});
    }
  });
 
